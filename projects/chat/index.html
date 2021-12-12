@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<style>
+    html, body, #app, #main {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    #app {
+        display: flex;
+        justify-content: center;
+    }
+
+    #main {
+        display: flex;
+    }
+
+    .auth-title {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        color: #FFFFFF;
+        margin-top: 30px;
+    }
+  
+    .auth-subtitle {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 18px;
+        text-align: center;
+        color: #7F91A4;
+        width: 330px;
+        height: 45px;
+        margin-top: 30px;
+    }
+  
+    .auth-icon {
+        width: 139px; 
+        height: 139px;
+        background: #232F3D;
+        border-radius: 50%;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAABBCAYAAACgsujXAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAPgSURBVHgB7ZxPUhpBFMa/N1JJKiuPgCeIN2A4QVA32YEnUDZRs8JNotmIJxAOEJkbACcIOYGzzY5dolWZl/dGpICCBJGme6b6t1GHwZn5pvv1+9PdBIeoNLrbW2+DKjOHzNiVQ0W4R0yEAYGibyel9rwTCI5Q+dKtUUBXYGwjO8QBUWNWXCdE3b/oXzH4GBmFiJq3J6X6+G9YJuuCPjEprFVR0y5PdIOcIKagpqbAqqh7F707uDkYrcqQf/POFiwxaqU15Is3QYCfBVhCusp7XvBZ5zR0xitZhPSyubfPAcIAlkiQ+qE5hN5ZE5XyZUsnKVoTNc94UQ3gRTWAF9UAXlQDeFEN4EU1gBfVAF5UA3hRDeBFNYAX1QBeVAN4UQ3gRTWAF9UAXlQDTNWopBhXBAVHBK7AQGY+C7WndTAW9eCyX03ATTBnadqNk6SiVj53KwlzC561UNAuL/X3K3jWhg5UIfJb2bRCQVppdebYgJnr8KxMQQrwu5ieazGMzso9eFYmsDXJVt5jjHwSW3P+5cID5BL+YW2CGoj7YKrM+2jR5K9MQEHH3gS1V2iJPR8iX8Sdk1LbmqhRvTzkJGdeBlFDf1hNqIiX0ZKw+Bo5QNzQ685olYr1LFXnrHycdWFV0EifY4QTqT8VVm7sEFlzs3RMIKpNCqo4k09VUyCpwR0VlwgR3BVYV/xFHNAx/+KdzpxVf/ZcqgWkdhZoTR5bOL+euS3n1+AYWc78D1wUVLHeUisXvZstot6fJOmLSPGSX4ulle7BALML5lapVlhvqbqgQhPk8iB3+yKwPFT4n6+ooOVnvICN41T3F8OpraS78AQZbV0XVMmUTWVyX1AlM6KqqxV9LGcis+WcSzUPEfR85GpN8UHqaw9BUE2SpO1SC86EqCJYY/aYrsC+19oapy5sHw4FC4GD6bdl76cIRynIkKt2KhwfIWwv4dasD7neTI0s8xWBAjH3mSgcH2Hs/tOtWTezAShRC8ugPcx8fW2lXlxI3qBJDzhyZJedmCWyWurMiR6muwSJjV2XGSs+/SKBSYQVKGgGXrp73Ym9TCRzHp2G8TKnPmaz0h5VBBvZOyCWSO8cK5D6qequWC1taKQk1+8s2DxrHupCaXSlmSqsn95LIrepZEE6lRJoSAsoYROj66OYKkrzJX6m7ryG12K+pOWmmzM8/l9NuMR4LvcYRo3yi0zJRuaL7l32vk92Ublo6/Y0PMSakYzXnSSQt9Nw1mL0tZEwdeVW80xIW6hlQZWNiJrav8BM/nMSfXku5Ac2llDRhzU9GLoS/280SxV9KjfzUud3joOv/SPkmL+WZIbUitWbhgAAAABJRU5ErkJggg==);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+  
+    .left-side {
+        flex-grow: 1;
+        max-width: 320px;
+        background: #17212B;
+        color: #FEFEFD;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .user-info {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .user-name {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .user-photo, .message-item-photo {
+        margin-right: 15px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMkAAAD7CAMAAAD3qkCRAAAAS1BMVEWAgYP///96e334+Pjl5eXx8fHt7e2NjpCIiYvExMWnqKmDhIbMzM3c3Nx3eHqXmJqsra6io6S+vr+ztLWTk5WbnJ64uLnV1dbR0dJpejMGAAAHmUlEQVR42uzc2Y6jQBBE0cwoNoNZveD//9JZWhpppBm5OyMQ1Ygj+8VvV8a4FsD8KM6S/Jwl+TlL8nOW5Ocsyc9Zkp+zJD9nSX7MN5fKqvhQJt/K5iXVen1O8/jT/ed7np6XtfQtbFtSPB/3xvAXa8b2mlxuw5K+bQywD92v18f794dz72IblaRi6QbY/2GoX6VrmctVr9lgbwAP7UGmLykuI2DvdUDbu4q+pLrdDfZJqJfkEvqSyQD7AoyF8/Qlrwb2RcDLSfqS8mawr8NSOkNfUsywEExMir6kqmFRj8oJ4pI0wsJQl06QlqQZFtehI1K0JU/j4F45QVfSNzBKh0fhBFVJGmEszKUTRCULjNZhcoKmJA2mMFycICmZYBJD4Qy+pGpMA/fSCXzJYjJPJ9Al5QOmUvcexpdcTQdt8iC+JE0wnW71IL6kqC2TL4UtecGU0HsIX5JacUnrIXxJ2ZnWkDyCL+kH08LVI/iSG9QlD4/gS2qYWGz6yJcMJvfyALqk0Jfg5gF0yQX6ktkD6JJ2g5Kx8gC25A6TqwsPIEvKxvTq1QPIkmKLku7qAWTJqzM7RsnFNoDFA8iSp5kdo6SF2VmSV8l0mJJtfidvVlW/z7lrl7Pw2tkfuy/fUSVVY3IY3021vssIEq0H0CVPmNziAXRJP5haV3iMOQUmhtoj+JL5IyWDaTxbshIlzBadviQ1uRxcbIk/YTkMVQQlvWlVHsOXlDMOshPkVxMCtTtHWmthCHHNGl2SbiZ08Si+ZDWltvQgvuSCTE7CbEmaYEqo/FPy3/sdXv7etyjBp0q+xdHFlHCWw5RczpJ/G/YbQfbDYUpgSk3pAXSJfoMO9Y4l9VHmJ9VDWjLtV1K2OMYIUrwkMaz+KfnPfpveo/iSYoSp4F54mDlrQhanLkFJ0ey+WcqW6K+F7F4eoCtJ2PXSLr5EP/bCzQnmAosm5JGcQJRQc2D9PY3mCtWIXf4V9SV+2WnIpS8pa+wwCuZL9GssqLO4W/aXCkZZnGUuMmGfWxn1JQVTMlydZq7SMilOkJcU3Q4rj9IS/o8eY3Keucza7fmV8CX8YzGQ1VNKflsbYqZIMxdqscPQcZOSFcSCCstcCRaQZck9kIIxx5JHpGTO61lRTElySj4lrdP0JU1otugsfUlCpOQHd+e21DoMQ1F5+5rEud/6/196hqHgHCeBptZAzX5gBuhDVy1ZsSypi0gVP4lCQlFXgvhJhj9D0uNXHlb4SZT9KyS1oydkjUgRG0n6TUp6put1IuPLxXgphJxwlaMah7TNi59Evv1QF1Ew34QckuyLn0TdS7pxZUGGN3c3y0vlVpS6fP+Aqb5veoNIEDdJJ+7yeJBjE9xvCTGFm2QZru3FoF6JoPZlMty1syKgPABiCymC1mZMcBVOEjNjM4VHLt/HEBWNK32qb5mfRI4glP///oVQRaPqfcKlFhtJeONuFUEF4QsPMbsVTbiNZyTRfbO/8/QOJyDtTUQqkFAhwUci1xZHj4L1jCMO15mdk7VIGKfGRSJ9WeH4QG5Gwg5kXsVOBT4oE1wlkUQtbYXTsmW5RhYGLPrAOC1+uZZIjZaAL8scZLd5ASj6zPeBFD/dpyW18j0aYOfMItY64dNDBnEk3VAQ+h+sqze1HycAD3ZZqY7w/h5rEXR6zsTslRR7sZMYP/YOwIXbKekrEDkf2c3ZUA1g6orICtlJtC+nCrjcE64mIFqQr47+ANl+CDDsJHVfEfDMEIj+rBvj/IwJqqbRCMFOIo23Da5XMoZh9rDB+h+rZQca19VacpLoegwcV8e+yA5RzvRCrg+w3aokE4kq+gr0qNwqjgfIYQ6MFxLJINiuqNNJtO8tkHCFsCmQ9N9uXOcr049rEkldOkLapeGC6D/PdXwAlSvr50ikGtAgZepA3FkHfxDeLwgNylXLayRS+RmgZ4Rt7kpaRLtBWhoZTTV6JR8mUb5zQHr3W2w98Fe85NxpyqJ+hET6biLwTDdXLoJMWJIIZlDfkKjOEsA1f6tEXMfF1T8Icm0hz0ikXlwD8E03v1U7y5OMFcbAfNN7EmnWEgAxCP68mrBgLcVHY0el/yOR6zgBxCPMp9aDWfM2cQNUevNJooveAcSmypw95mIy7F82AmoH+U6yWAKxqjiL4BijIgQmlql4I+lDJOc2rwnnPeMtiE8AjSZaD9bZlMX5khgQr8DPsd2iJpwNJBhAOQi9jh8g4xhv8yAJBRwljs8umjIRiughMR4rqCgTYdZH8U9vrn6ykYqyQFFHQ5eJm2xdYsBBfYpssyEhF3IrByTKUjZqVPCIQJKhmxDK4PKBJD83eZPcp4k+SExGbvJ50pUd9j2LdUUZ6W5epsc+nhQ5LQnBmrsh7XYBPWdFch+gr9z+gK/yArlvVTUFocvRuD7ar27N9i/vJJkZFxF8/Pnj3U1yA/nXvh2kIBDDUAAtoR0VYcRB9P431e5sdrMMvHeCFkJoPs38kZMyr71XLK6pp7XTOCqNi+u8NV6RQ5et3kXmwUfO9MpkEasY294WR8HONcX7Eyl0KTWa/LnmPnXpt1bTI3JnflYsrp9oyb3Ugx4AAAAAAAAAAACAU75KyInV89yuSQAAAABJRU5ErkJggg==');
+        background-size: cover;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+    }
+
+    .message-item-photo {
+        margin-left: 15px;
+    }
+
+    .user-list-header {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .user-list {
+        padding: 5px 0 0 0;
+    }
+
+    .user-list-item {
+        align-items: center;
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .right-side {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        background: #0E1621;
+        border: 1px solid black;
+    }
+
+    .messages-container {
+        flex-grow: 1;
+        overflow: scroll;
+        color: #FFFFFF;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        height: 54px;
+        background-color: #17212B;
+    }
+
+    .message-input {
+        height: 30px;
+        flex-grow: 1;
+        margin: 0 10px 0 10px;
+        background: #17212B;
+        border: 0;
+        color: #FFFFFF;
+    }
+
+    .send-button {
+        width: 112px;
+        height: 28px;
+        background: #5387C1;
+        border-radius: 5px;
+        color: #FFFFFF;
+        border-width: 0;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    #login {
+        position: absolute;
+        top: 20vh;
+        width: 452px;
+        height: 497px;
+        background: #17212B;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-field {
+        margin: 15px;
+        width: 300px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .login-field input {
+        font-size: 16px;
+        height: 30px;
+        width: 100%;
+        background-color: #17212B;
+        border-width: 0 0 2px 0;
+    }
+
+    .login-name-input {
+        color: #FFFFFF;
+    }
+
+    .login-submit {
+        width: 132px;
+        height: 43px;
+        margin: 15px;
+        border-width: 0;
+        justify-content: center;
+        background: #5188C1;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 17px;
+        text-transform: uppercase;
+        color: #FFFFFF;
+    }
+
+    .message-item {
+        display: flex;
+    }
+
+    .message-item-system {
+        font-size: 14px;
+        color: gray;
+    }
+
+    .message-item ~ .message-item {
+        margin-top: 15px;
+    }
+
+    .message-item-right {
+        flex-grow: 1;
+    }
+
+    .message-item-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .message-item-header-name {
+        font-weight: bold;
+        margin-right: 15px;
+    }
+
+    .message-item-header-time {
+        color: gray;
+        font-size: 12px;
+    }
+
+    .number-entries-container {
+        color: #7F91A4;
+        margin-bottom: 30px;
+        padding-left: 15px;
+        border-bottom: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: black;
+        background: #17212B;
+    }
+</style>
+<div id="app">
+    <div id="login" class="hidden">
+        <div class="auth-icon"></div>
+        <span class="auth-title">Авторизация</span>
+        <span class="auth-subtitle">Введите пожалуйста свой ник для дальнейшей авторизации</span>
+        <div class="login-field">
+            <input type="text" class="login-name-input" data-role="login-name-input" placeholder="Введите свой ник">
+        </div>
+        <div>
+            <button class="login-submit" data-role="login-submit">Войти</button>
+        </div>
+    </div>
+
+    <div id="main" class="hidden">
+        <div class="left-side">
+            <div class="user-info">
+                <div class="user-photo" data-role="user-photo"></div>
+                <div class="user-name" data-role="user-name"></div>
+            </div>
+            <div class="user-list-container">
+                <div class="user-list-header">Все пользователи:</div>
+                <div class="user-list" data-role="user-list"></div>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="number-entries-container">
+                <div>Чат</div>
+                <div data-role="number-entries"></div>
+            </div>
+            <div class="messages-container" data-role="messages-list"></div>
+            <div class="input-container" data-role="message-sender">
+                <input class="message-input" data-role="message-input" type="text" placeholder="Введите сообщение..."/>
+                <button class="send-button" data-role="message-send-button">Отправить</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
